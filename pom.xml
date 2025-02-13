@@ -36,22 +36,42 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.9.9</version>
             </plugin>
-            
-            <!-- JaCoCo Plugin for test coverage -->
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.7</version> <!-- Usa la última versión disponible -->
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>prepare-agent</goal> <!-- Prepara el agente de JaCoCo -->
-                            <goal>report</goal> <!-- Genera el informe de cobertura -->
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
 
+    <!-- JaCoCo Plugin for test coverage -->
+    <profiles>
+        <profile>
+            <id>coverage</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <version>0.8.7</version>
+                        <executions>
+                            <execution>
+                                <id>prepare-agent</id>
+                                <goals>
+                                    <goal>prepare-agent</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>report</id>
+                                <goals>
+                                    <goal>report</goal>
+                                </goals>
+                                <configuration>
+                                    <formats>
+                                        <format>XML</format>
+                                    </formats>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
+
